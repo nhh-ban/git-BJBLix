@@ -1,5 +1,12 @@
 
 
+# Problem 1 -----
+
+# Done with Git
+
+# Problem 2 -----
+
+
 library(tidyverse)
 
 
@@ -36,3 +43,31 @@ galaxy_data_df <- data_lines %>%
 colnames(galaxy_data_df) <- column_names
 
 head(galaxy_data_df)
+
+# Converting some of columns to numeric values
+
+columns_to_convert <- c("a_26", "m_b", "log_lk", "log_m26", "log_mhi",
+                        "vlg", "ti1", "delta_vlg", "count")
+
+galaxy_data_df <- galaxy_data_df %>% 
+  mutate_at(vars(columns_to_convert), as.numeric)
+
+head(galaxy_data_df)
+
+# Problem 3 -----
+
+#loading ggplot-package
+library(ggplot2)
+
+# Looking at the galaxy diameters
+galaxy_data_df %>% 
+  ggplot(aes(x=a_26)) +
+  geom_histogram(binwidth = 0.6, fill="blue", color="black", alpha=0.7) +
+  labs(title="Distribution of Galaxy Diameters",
+       x="Galaxy diameter in kpc",
+       y="Number of Galaxies") +
+  theme_minimal() +
+  theme(panel.grid.minor = element_line(color = "gray", linetype = "dotted"))
+
+
+
